@@ -215,11 +215,13 @@ async function playAudio(status) {
 
 //funciona que é executada quando carrega-se a página e inicia o jogo
 function init(){
+    const bgm = document.getElementById("bgm");
+    bgm.play();
 
     ShowHiddenCardFieldsImages(false);
 
     drawCards(5, state.playerSides.player1);
-    drawCards(5, state.playerSides.computer);
+    drawCards(5, state.playerSides.computer);    
 }
 
 init();
