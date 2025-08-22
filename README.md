@@ -5,6 +5,7 @@ Projeto desenvolvido durante o **Bootcamp Santander Front-end 2025**, unindo a t
 O jogador enfrenta o computador em um duelo de cartas inspirado no estilo do anime, com cartas representando Pedra, Papel e Tesoura (adaptadas para monstros lendários de Yu-Gi-Oh).  
 
 Link no Pages: https://luketes.github.io/Yugioh-Jokenpo/
+
 ---
 
 ## 🚀 Tecnologias utilizadas  
