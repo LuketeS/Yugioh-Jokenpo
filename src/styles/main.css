@@ -92,6 +92,7 @@
     height: 300px;
     align-items: center;
     justify-content: center;
+    align-content: center;
 }
 
 .versus-top, .versus-bottom{
