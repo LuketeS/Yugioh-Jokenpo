@@ -17,6 +17,13 @@ const state = {
         computer:document.getElementById("computer-field-card"),
         player:document.getElementById("player-field-card"),
     },
+
+    playerSides: {
+    player1: "player-cards",
+    player1BOX:document.querySelector("#computer-cards"),    
+    computer: "computer-cards",
+    computerBOX:document.querySelector("#player-cards"),
+    },
     //acessa o botão de próximo duelo
     actions: {
         button:document.getElementById("next-duel"),
@@ -24,10 +31,7 @@ const state = {
 };
 
 //Enum para acessar os lados do campo contendo as 5 cartas de cada jogador
-const playerSides = {
-    player1: "player-card",
-    computer: "computer-cards",
-}
+
 
 //Enum para facilitar o acesso a source de imagem de cada carta
 const pathImages = "./src/assets/icons/"
@@ -74,7 +78,7 @@ async function createCardImage(IdCard, fieldSide) {
     cardImage.setAttribute("data-id", IdCard);
     cardImage.classList.add("card");
 
-    if(fieldSide === playerSides.player1){ 
+    if(fieldSide === state.playerSides.player1){ 
         cardImage.addEventListener("mouseover", () => {
         drawSelectCard(IdCard);
 
@@ -108,6 +112,15 @@ async function setCardsField(cardId){
     await drawButton(duelResults);
 }
 
+async function removeAllCardsImages() {
+    let {computerBOX, player1BOX} = state.playerSides;
+    let imgElements = computerBOX.querySelectorAll("img");
+    imgElements.forEach((img) => img.remove());
+
+    cards = state.playerSides;
+    imgElements = player1BOX.querySelectorAll("img");
+    imgElements.forEach((img) => img.remove());    
+}
 
 //Faz com que a carta que o mouse passa por cima irá para mão do jogador à esquerda
 async function drawSelectCard(index) {
@@ -131,8 +144,8 @@ async function drawCards(cardNumbers, fieldSide){
 
 //funciona que é executada quando carrega-se a página e inicia o jogo
 function init(){
-    drawCards(5, playerSides.player1);
-    drawCards(5, playerSides.computer);
+    drawCards(5, state.playerSides.player1);
+    drawCards(5, state.playerSides.computer);
 }
 
 init();
