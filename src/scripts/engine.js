@@ -113,7 +113,7 @@ async function setCardsField(cardId){
 }
 
 async function drawButton(text) {
-    state.actions.button.innerText = text;
+    state.actions.button.innerText = text.toUpperCase();
     state.actions.button.style.display = "block";
 }
 
@@ -123,23 +123,24 @@ async function updateScore() {
 
 //Verifica se a carta do jogador ganha ou perde e retorna o resultado
 async function checkDuelResults(playerCardId, ComputerCardId) {
-    let duelResults = "Empate";
+    let duelResults = "Draw";
     let playerCard = cardData[playerCardId];
 
     if(playerCard.WinOf.includes(ComputerCardId)){
-        duelResults = "Ganhou";
+        duelResults = "Win";
         state.score.playerScore++;
     }
 
     if(playerCard.LoseOf.includes(ComputerCardId)){
-        duelResults = "Perdeu";   
+        duelResults = "Lose";  
         state.score.computerScore++;     
     }
 
+    await playAudio(duelResults); 
     return duelResults;
 }
 
-
+//Função para remover as cartas que estavam na mào dos jogadores após duelo acabar
 async function removeAllCardsImages() {
     let {computerBOX, player1BOX} = state.playerSides;
     let imgElements = computerBOX.querySelectorAll("img");
@@ -168,6 +169,25 @@ async function drawCards(cardNumbers, fieldSide){
         //insere a carta na mão de um jogador
         document.getElementById(fieldSide).appendChild(cardImage);
     }
+}
+
+//reinicia o jogo para o estado inicial, com o placar alterado
+async function resetDuel() {
+    state.cardsSprites.avatar.src = "";
+    state.actions.button.style.display = "none";
+
+    state.fieldCards.player.style.display = "none";
+    state.fieldCards.computer.style.display = "none";
+
+    init();
+}
+
+async function playAudio(status) {
+    const audio = new Audio(`./src/assets/audios/${status}.wav`);
+    try{
+        audio.play();
+    }catch{}
+    
 }
 
 //funciona que é executada quando carrega-se a página e inicia o jogo
